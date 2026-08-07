@@ -1,6 +1,677 @@
-main 10K Rising hub.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<a href="rethawed">
-                        Click here to visit the reTHAWed page.
+    <title>10K Rising — Modding Group</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg: #08090c;
+            --bg-secondary: #0e1015;
+            --card: #11141a;
+            --border: rgba(255,255,255,0.08);
+            --text: #f2f4f8;
+            --muted: #9298a5;
+            --accent: #ff3d81;
+            --accent-2: #8b5cf6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(circle at 50% -10%, rgba(139, 92, 246, 0.18), transparent 35%),
+                radial-gradient(circle at 80% 20%, rgba(255, 61, 129, 0.08), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ---------------- NAV ---------------- */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+            z-index: 100;
+
+            background: rgba(8, 9, 12, 0.72);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-mark {
+            width: 34px;
+            height: 34px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 9px;
+
+            background: linear-gradient(
+                135deg,
+                var(--accent),
+                var(--accent-2)
+            );
+
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+
+            box-shadow:
+                0 0 25px rgba(255, 61, 129, 0.25);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s ease;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        .nav-button {
+            padding: 9px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .nav-button:hover {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* ---------------- HERO ---------------- */
+
+        .hero {
+            min-height: 92vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding: 120px 20px 80px;
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            width: 600px;
+            height: 600px;
+
+            left: 50%;
+            top: 35%;
+
+            transform: translate(-50%, -50%);
+
+            background: radial-gradient(
+                circle,
+                rgba(139, 92, 246, 0.13),
+                transparent 70%
+            );
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            max-width: 850px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 7px 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,0.035);
+
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 600;
+
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 10px rgba(74,222,128,0.7);
+        }
+
+        h1 {
+            font-size: clamp(55px, 9vw, 105px);
+            line-height: 0.95;
+            letter-spacing: -6px;
+            font-weight: 800;
+
+            margin-bottom: 28px;
+        }
+
+        h1 span {
+            background: linear-gradient(
+                100deg,
+                #fff 15%,
+                #c4b5fd 45%,
+                #ff7aa9 85%
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+
+            margin-top: 35px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 13px 21px;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                var(--accent),
+                var(--accent-2)
+            );
+
+            box-shadow:
+                0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .button-secondary {
+            color: white;
+            background: rgba(255,255,255,0.045);
+            border: 1px solid var(--border);
+        }
+
+        /* ---------------- SECTIONS ---------------- */
+
+        section {
+            max-width: 1150px;
+            margin: auto;
+            padding: 100px 25px;
+        }
+
+        .section-header {
+            margin-bottom: 35px;
+        }
+
+        .section-header small {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-header h2 {
+            margin-top: 9px;
+
+            font-size: 34px;
+            letter-spacing: -1.5px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        /* ---------------- PROJECTS ---------------- */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .project {
+            min-height: 240px;
+
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,0.045),
+                    rgba(255,255,255,0.015)
+                );
+
+            border: 1px solid var(--border);
+            border-radius: 15px;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.16);
+        }
+
+        .project-icon {
+            width: 43px;
+            height: 43px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 11px;
+
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.2);
+
+            font-size: 18px;
+        }
+
+        .project h3 {
+            margin-top: 20px;
+            font-size: 19px;
+        }
+
+        .project p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 7px;
+        }
+
+        .project-link {
+            margin-top: 20px;
+
+            color: #c4b5fd;
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+
+        /* ---------------- CTA ---------------- */
+
+        .cta {
+            text-align: center;
+
+            padding: 80px 30px;
+
+            border: 1px solid var(--border);
+            border-radius: 20px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(139,92,246,0.14),
+                    transparent 60%
+                ),
+                rgba(255,255,255,0.02);
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            letter-spacing: -1.5px;
+        }
+
+        .cta p {
+            color: var(--muted);
+            margin: 12px auto 28px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        /* ---------------- FOOTER ---------------- */
+
+        footer {
+            border-top: 1px solid var(--border);
+
+            padding: 28px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ---------------- MOBILE ---------------- */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                min-height: 85vh;
+            }
+
+            h1 {
+                letter-spacing: -3px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                max-width: 250px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            section {
+                padding: 70px 20px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#community">Community</a></li>
+        </ul>
+
+        <a class="nav-button" href="#community">Socials</a>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    <img width="400" alt="" src="assets/10k_clean.png"/>
+                </h1>
+
+                <p>
+                    We are a modding community dedicated to Neversoft-Made Tony Hawk games, our main project being <a href="rethawed">reTHAWed</a>.
+                </p>
+
+                <div class="hero-buttons">
+                    <a class="button button-primary" href="#projects">
+                        Explore projects
                     </a>
-blah blah blah
+
+                    <a class="button button-secondary"
+                       href="https://discord.com/"
+                       target="_blank">
+                        Join our Discord
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+
+        <section id="projects">
+
+            <div class="section-header">
+                <h2>Our projects</h2>
+            </div>
+
+            <div class="projects">
+
+                <article class="project">
+
+                    <div>
+                        <img width="200" alt="" src="assets/rethawed.png"/>
+
+                        <p>
+                            The ULTIMATE THPS Experience, all-in-one package that includes 20+ years worth of content and new QOL additions.
+                        </p>
+                    </div>
+
+                    <a class="project-link" href="rethawed">
+                        View project →
+                    </a>
+
+                </article>
+
+
+                <article class="project">
+
+                    <div>
+                        <img width="200" alt="" src="assets/PROJECT_8_REV_LOGO.png"/>
+
+                        <p>
+                            60 FPS, Debug Menu, Tech additions and more for THP8 (x360 & PS3)
+                        </p>
+                    </div>
+
+                    <a class="project-link" href="#">
+                        View project →
+                    </a>
+
+                </article>
+
+
+                <article class="project">
+
+                    <div>
+                        <img width="200" alt="" src="assets/THPG_white.png"/>
+
+                        <p>
+                            60 FPS, Debug Menu, Tech additions and more for THPG (x360 & PS3)
+                        </p>
+                    </div>
+
+                    <a class="project-link" href="#">
+                        Browse tools →
+                    </a>
+
+                </article>
+				
+				<article class="project">
+
+                    <div>
+                        <img width="200" alt="" src="assets/THUG_TURBOV2.png"/>
+
+                        <p>
+                            Maps, Tricks and more for THUG 1
+                        </p>
+                    </div>
+
+                    <a class="project-link" href="#">
+                        Browse tools →
+                    </a>
+
+                </article>
+				
+				<article class="project">
+
+                    <div>
+                        <img width="200" alt="" src="assets/thpm.webp"/>
+
+                        <p>
+                            A mod started solely by Iron Hawk, a mega mod for THP8 PSP.
+                        </p>
+                    </div>
+
+                    <a class="project-link" href="#">
+                        Browse tools →
+                    </a>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- COMMUNITY -->
+
+        <section id="community">
+
+            <div class="cta">
+
+                <h2>Socials</h2>
+
+                <p>
+                    Heres some places you can find us!
+                </p>
+
+                <a
+                    class="button button-primary"
+                    href="https://discord.com/"
+                    target="_blank"
+                >
+                    <img width="104" alt="" src="assets/discord.png"/>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <span>
+            Since 2017 -- 10K Rising
+        </span>
+
+    </footer>
+
+</body>
+</html>
